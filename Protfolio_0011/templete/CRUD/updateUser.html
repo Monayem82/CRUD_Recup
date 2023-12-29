@@ -18,7 +18,7 @@
             {% endif %}
 
           {% for frm in form %}
-          <p>{{frm.label_tag}} {{frm}}</p>
+          <p>{{frm.label_tag}} {{frm}} {{frm.errors | striptags}}</p>
           {% endfor %}
             <button class="btn btn-primary" type="submit">Save</button>
         </form>
