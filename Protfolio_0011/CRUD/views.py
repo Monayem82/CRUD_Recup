@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from CRUD.forms import CreateUser,loginUser
+from CRUD.forms import CreateUser,loginUser,showUserDetiles
 from django.contrib.auth import login,logout,authenticate
 
 
@@ -14,9 +14,21 @@ def createUserViews(request):
         frm=CreateUser()
     return render(request,'CRUD/userCreate.html',context={'form':frm})
 
-# def showUserViews(request):
-#     users=CreateUser.objects.all()
-#     return render(request,'CRUD/showUser.html',context={"users":users})
+# Show User Detelis
+
+def showUserViews(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            frm=showUserDetiles(request.POST,instance =request.user)
+            if frm.is_valid():
+                frm.save()
+
+        else:
+            frm=showUserDetiles(instance=request.user)
+        return render(request,'CRUD/showUser.html',context={"form":frm})
+    else:
+        return HttpResponseRedirect('/crud/login/')
+
 
 def loginUserView(request):
     if request.method=='POST':
@@ -27,7 +39,7 @@ def loginUserView(request):
             user=authenticate(username=usern,password=passn)
             if user is not None:
                 login(request,user)
-                return HttpResponseRedirect('/crud/createUsers/')
+                return HttpResponseRedirect('/crud/showUsers/')
     else:
         frm=loginUser()
     return render(request,'CRUD/loginUser.html',context={'user':frm})

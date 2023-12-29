@@ -2,7 +2,7 @@ from typing import Any
 from django import forms
 from django.forms import ModelForm,widgets
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm,AuthenticationForm,UserChangeForm
 
 class CreateUser(UserCreationForm):
     class Meta:
@@ -29,3 +29,9 @@ class loginUser(AuthenticationForm):
 
         self.fields['username'].widget.attrs['class']='form-control'
         self.fields['password'].widget.attrs['class']='form-control'
+
+class showUserDetiles(UserChangeForm):
+    password=None
+    class Meta:
+        model=User
+        fields=['username','email','first_name','last_name']
