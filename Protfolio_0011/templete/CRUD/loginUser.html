@@ -7,8 +7,17 @@
   <main class="container bg-body-tertiary mt-2">
     <h1 class="text-center">Log in</h1>
     <section>
-        <form action="" method="POST">
-            {{user}}
+        <form action="" method="POST" novalidate>
+            {% csrf_token %}
+            {% if user.non_field_errors %}
+              {% for error in user.non_field_errors %}
+                <p>{{error}}</p>
+              {% endfor %}
+            {% endif %}
+
+            {% for frm in user %}
+              <p>{{frm.label_tag}} {{frm}} {{frm.errors | striptags}}</p>
+            {% endfor %}
             <button class="btn btn-primary" type="submit">Submit</button>
         </form>
     </section>
