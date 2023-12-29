@@ -1,0 +1,35 @@
+{% extends 'common/index.html' %}
+{% block title %}   Crud   {% endblock title %}
+{% block content %}
+<main class="container">
+    <h1 class="text-center">Create new User</h1>
+    <section>
+        <div class="row row-cols-2 align-items-center">
+            <div class="col">
+                <form action="" method="POST" novalidate>
+                    {% csrf_token %}
+        
+                    {% if form.non_field_errors %}
+                        {% for error in form.non_field_errors %}
+                            <p>{{error}}</p>
+                        {% endfor %}
+                    {% endif %}
+        
+                    {% for frm in form %}
+                        <p>{{frm.label_tag}} {{frm}} {{frm.errors | striptags}}</p>
+                    {% endfor %}
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </form>
+            </div>
+            <div class="col">
+                <h1>Hi</h1>
+                <h1>Hi</h1>
+                <h1>Hi</h1>
+                <h1>Hi</h1>
+                <h1>Hi</h1>
+                <h1>Hi</h1>
+            </div>
+          </div>
+    </section>
+</main>
+{% endblock content %}

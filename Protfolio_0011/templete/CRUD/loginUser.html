@@ -1,0 +1,16 @@
+{% extends 'common/index.html' %}
+{% block title %}
+  show all user
+{% endblock title %}
+
+{% block content %}
+  <main class="container bg-body-tertiary mt-2">
+    <h1 class="text-center">Log in</h1>
+    <section>
+        <form action="" method="POST">
+            {{user}}
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+    </section>
+  </main>
+{% endblock content %}
