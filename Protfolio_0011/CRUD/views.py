@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from CRUD.forms import CreateUser,loginUser,showUserDetiles,UpdateUserForm
-from django.contrib.auth import login,logout,authenticate
+from CRUD.forms import CreateUser,loginUser,showUserDetiles,UpdateUserForm,passChangeForm
+from django.contrib.auth import login,logout,authenticate,update_session_auth_hash
 
 
 # Create your views here.
@@ -61,3 +61,20 @@ def updateUserView(request):
         return render(request,'CRUD/updateUser.html',context={"form":frm})
     else:
         return HttpResponseRedirect('/crud/login/')
+    
+def passChangeView(request):
+    if request.user.is_authenticated:
+        if request.method=="POST":
+            frm=passChangeForm(user=request.user,data=request.POST)
+            if frm.is_valid():
+                frm.save()
+                update_session_auth_hash(request,frm.user)
+                return HttpResponseRedirect('/crud/showUsers/')
+        else:
+            frm=passChangeForm(user=request.user)
+        return render(request,'CRUD/passChange.html',context={'form':frm})
+    else:
+        return HttpResponseRedirect('/crud/login/')
+
+        
+

@@ -1,0 +1,32 @@
+{% extends 'common/index.html' %}
+{% block title %}
+  change Password
+{% endblock title %}
+
+{% block content %}
+  <main class="container bg-body-tertiary mt-2">
+    <h1 class="text-center">Updates Your data</h1>
+    <section>
+        <form action="" method="POST" novalidate>
+            {% csrf_token %}      
+
+
+            {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                    <p>{{error}}</p>
+                {% endfor %}
+            {% endif %}
+
+          {% for frm in form %}
+          <p>{{frm.label_tag}} {{frm}}</p>
+          {% endfor %}
+            <button class="btn btn-primary" type="submit">Save</button>
+        </form>
+    </section>
+    <section class="d-flex">
+        <a href="{% url 'userDashboard' %}"> Back Dashboard </a>
+      <h1> ||||||||||| </h1>
+      <a href="{% url 'loginUser' %}"> Log Out </a>
+    </section>
+  </main>
+{% endblock content %}
