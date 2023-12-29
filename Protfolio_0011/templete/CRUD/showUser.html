@@ -7,7 +7,11 @@
   <main class="container bg-body-tertiary mt-2">
     <h1 class="text-center">Welcome to Dashboard</h1>
     <section>
-        {{form}}
+
+          {% for frm in form %}
+            <p>{{frm.label_tag}} {{frm.value}}</p>
+          {% endfor %}
+        
     </section>
   </main>
 {% endblock content %}

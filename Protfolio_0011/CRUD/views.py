@@ -18,17 +18,12 @@ def createUserViews(request):
 
 def showUserViews(request):
     if request.user.is_authenticated:
-        if request.method == 'POST':
-            frm=showUserDetiles(request.POST,instance =request.user)
-            if frm.is_valid():
-                frm.save()
-
-        else:
-            frm=showUserDetiles(instance=request.user)
+        frm=showUserDetiles(instance=request.user)
         return render(request,'CRUD/showUser.html',context={"form":frm})
     else:
         return HttpResponseRedirect('/crud/login/')
 
+# Valid Log in
 
 def loginUserView(request):
     if request.method=='POST':
@@ -43,3 +38,17 @@ def loginUserView(request):
     else:
         frm=loginUser()
     return render(request,'CRUD/loginUser.html',context={'user':frm})
+
+
+# def showUserViews(request):
+#     if request.user.is_authenticated:
+#         if request.method == 'POST':
+#             frm=showUserDetiles(request.POST,instance =request.user)
+#             if frm.is_valid():
+#                 frm.save()
+
+#         else:
+#             frm=showUserDetiles(instance=request.user)
+#         return render(request,'CRUD/showUser.html',context={"form":frm})
+#     else:
+#         return HttpResponseRedirect('/crud/login/')
