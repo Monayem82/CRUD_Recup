@@ -19,7 +19,7 @@ def createUserViews(request):
 def showUserViews(request):
     if request.user.is_authenticated:
         frm=showUserDetiles(instance=request.user)
-        return render(request,'CRUD/showUser.html',context={"form":frm})
+        return render(request,'CRUD/showUserDashboard.html',context={"form":frm})
     else:
         return HttpResponseRedirect('/crud/login/')
 
@@ -39,16 +39,21 @@ def loginUserView(request):
         frm=loginUser()
     return render(request,'CRUD/loginUser.html',context={'user':frm})
 
+# log out 
+def logOutUser(request):
+    logout(request)
+    return HttpResponseRedirect('/crud/login/')
 
-# def showUserViews(request):
-#     if request.user.is_authenticated:
-#         if request.method == 'POST':
-#             frm=showUserDetiles(request.POST,instance =request.user)
-#             if frm.is_valid():
-#                 frm.save()
 
-#         else:
-#             frm=showUserDetiles(instance=request.user)
-#         return render(request,'CRUD/showUser.html',context={"form":frm})
-#     else:
-#         return HttpResponseRedirect('/crud/login/')
+def updateUserView(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            frm=showUserDetiles(request.POST,instance =request.user)
+            if frm.is_valid():
+                frm.save()
+
+        else:
+            frm=showUserDetiles(instance=request.user)
+        return render(request,'CRUD/updateUser.html',context={"form":frm})
+    else:
+        return HttpResponseRedirect('/crud/login/')

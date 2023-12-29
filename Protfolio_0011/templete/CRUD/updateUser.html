@@ -1,0 +1,22 @@
+{% extends 'common/index.html' %}
+{% block title %}
+  show all user
+{% endblock title %}
+
+{% block content %}
+  <main class="container bg-body-tertiary mt-2">
+    <h1 class="text-center">Welcome to Dashboard</h1>
+    <section>
+
+          {% for frm in form %}
+            <p>{{frm.label_tag}} {{frm.value}}</p>
+          {% endfor %}
+        
+    </section>
+    <section class="d-flex">
+      <a href="">Update Information</a>
+      <h1> ||||||||||| </h1>
+      <a href="{% url 'loginUser' %}"> Log Out </a>
+    </section>
+  </main>
+{% endblock content %}
