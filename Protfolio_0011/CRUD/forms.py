@@ -35,3 +35,10 @@ class showUserDetiles(UserChangeForm):
     class Meta:
         model=User
         fields=['username','email','first_name','last_name']
+
+class UpdateUserForm(UserChangeForm):
+    password=None
+    class Meta:
+        model=User
+        #fields="__all__"
+        fields=['username','email','first_name','last_name','is_staff','is_active','date_joined']

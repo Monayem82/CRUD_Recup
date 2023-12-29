@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from CRUD.forms import CreateUser,loginUser,showUserDetiles
+from CRUD.forms import CreateUser,loginUser,showUserDetiles,UpdateUserForm
 from django.contrib.auth import login,logout,authenticate
 
 
@@ -10,6 +10,8 @@ def createUserViews(request):
         frm=CreateUser(request.POST)
         if frm.is_valid():
             frm.save()
+            frm=CreateUser()
+            return HttpResponseRedirect('/crud/login/')
     else:
         frm=CreateUser()
     return render(request,'CRUD/userCreate.html',context={'form':frm})
@@ -44,16 +46,18 @@ def logOutUser(request):
     logout(request)
     return HttpResponseRedirect('/crud/login/')
 
+# Update the User Informations
 
 def updateUserView(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
-            frm=showUserDetiles(request.POST,instance =request.user)
+            frm=UpdateUserForm(request.POST,instance =request.user)
             if frm.is_valid():
                 frm.save()
+                return HttpResponseRedirect('/crud/showUsers/')
 
         else:
-            frm=showUserDetiles(instance=request.user)
+            frm=UpdateUserForm(instance=request.user)
         return render(request,'CRUD/updateUser.html',context={"form":frm})
     else:
         return HttpResponseRedirect('/crud/login/')
